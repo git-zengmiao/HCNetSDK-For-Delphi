@@ -1,0 +1,168 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = #28023#24208#22275#35270#31649#25480' FMX Demo'
+  ClientHeight = 520
+  ClientWidth = 900
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnResize = FormResize
+  DesignerMasterStyle = 0
+  object layVideo: TLayout
+    Align = Client
+    Margins.Left = 8.000000000000000000
+    Margins.Top = 8.000000000000000000
+    Margins.Right = 220.000000000000000000
+    Margins.Bottom = 8.000000000000000000
+    Size.Width = 462.000000000000000000
+    Size.Height = 504.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    OnResize = layVideoResize
+    object recVideoBackground: TRectangle
+      Align = Contents
+      Fill.Color = xFF1A1A1A
+      HitTest = False
+      Size.Width = 462.000000000000000000
+      Size.Height = 504.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object txtVideoHint: TText
+        Align = Center
+        HitTest = False
+        Size.Width = 300.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        Text = #35270#39057#26174#31034#21306#22495
+        TextSettings.FontColor = xFF888888
+      end
+    end
+  end
+  object layPanel: TLayout
+    Align = Right
+    Padding.Left = 8.000000000000000000
+    Padding.Top = 8.000000000000000000
+    Padding.Right = 8.000000000000000000
+    Padding.Bottom = 8.000000000000000000
+    Position.X = 690.000000000000000000
+    Size.Width = 210.000000000000000000
+    Size.Height = 520.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object lblIP: TLabel
+      Position.Y = 12.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'IP '#22320#22336#65306
+    end
+    object edtIP: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Text = '192.168.6.120'
+      Position.Y = 32.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 28.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblPort: TLabel
+      Position.Y = 70.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #31471#21475#65306
+    end
+    object edtPort: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Text = '8000'
+      Position.Y = 90.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 28.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblUser: TLabel
+      Position.Y = 128.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #29992#25143#21517#65306
+    end
+    object edtUser: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Text = 'admin'
+      Position.Y = 148.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 28.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblPass: TLabel
+      Position.Y = 186.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #23494#30721#65306
+    end
+    object edtPass: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Password = True
+      Text = 'admin12345'
+      Position.Y = 206.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 28.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblCh: TLabel
+      Position.Y = 244.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #36890#36947#65306
+    end
+    object edtCh: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Text = '1'
+      Position.Y = 264.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 28.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnInit: TButton
+      Position.Y = 316.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      Text = #21021#22987#21270'SDK '#24182#30331#38470
+      OnClick = btnInitClick
+    end
+    object btnPreview: TButton
+      Enabled = False
+      Position.Y = 362.000000000000000000
+      Size.Width = 194.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      Text = #24320#22987#39044#35272
+      OnClick = btnPreviewClick
+    end
+    object btnCapture: TButton
+      Enabled = False
+      Position.Y = 408.000000000000000000
+      Size.Width = 90.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      Text = #25235#22270
+      OnClick = btnCaptureClick
+    end
+    object btnStop: TButton
+      Enabled = False
+      Position.X = 100.000000000000000000
+      Position.Y = 408.000000000000000000
+      Size.Width = 94.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      Text = #20572#27490#39044#35272
+      OnClick = btnStopClick
+    end
+  end
+end

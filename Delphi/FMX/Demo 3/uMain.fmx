@@ -1,0 +1,197 @@
+object TfrmMain
+  StyleLookup = 'background'
+  Caption = '海康威视 HCNetSDK FMX Demo 3 —— 隐藏HWND+BitBlt方案'
+  ClientHeight = 620
+  ClientWidth = 900
+  object imgVideo: TImage
+    StyleLookup = ''
+    Locked = True
+    Position.X = 0.000000000000000000
+    Position.Y = 0.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    WrapMode = Fit
+  end
+  object layPanel: TLayout
+    StyleLookup = ''
+    Align = Right
+    Size.Width = 260.000000000000000000
+    Size.Height = 620.000000000000000000
+    Size.PlatformDefault = False
+    object lblIP: TLabel
+      StyleLookup = ''
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = '设备 IP：'
+    end
+    object edtIP: TEdit
+      StyleLookup = 'editstyle'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Text = '192.168.1.64'
+    end
+    object lblPort: TLabel
+      StyleLookup = ''
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = '端口：'
+    end
+    object edtPort: TEdit
+      StyleLookup = 'editstyle'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Text = '8000'
+      KeyboardType = NumberPad
+    end
+    object lblUser: TLabel
+      StyleLookup = ''
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = '用户名：'
+    end
+    object edtUser: TEdit
+      StyleLookup = 'editstyle'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'admin'
+    end
+    object lblPass: TLabel
+      StyleLookup = ''
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = '密码：'
+    end
+    object edtPass: TEdit
+      StyleLookup = 'editstyle'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 16.000000000000000000
+      Password = True
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Text = '12345'
+    end
+    object lblCh: TLabel
+      StyleLookup = ''
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = '通道号：'
+    end
+    object edtCh: TEdit
+      StyleLookup = 'editstyle'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 24.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Text = '1'
+      KeyboardType = NumberPad
+    end
+    object btnInit: TButton
+      StyleLookup = 'buttongradient'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = '1. 初始化 & 登录'
+      OnClick = btnInitClick
+    end
+    object btnPreview: TButton
+      StyleLookup = 'buttongradient'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Rights = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Enabled = False
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = '2. 开始预览'
+      OnClick = btnPreviewClick
+    end
+    object btnCapture: TButton
+      StyleLookup = 'buttongradient'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Rights = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Enabled = False
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = '3. 抓图'
+      OnClick = btnCaptureClick
+    end
+    object btnStop: TButton
+      StyleLookup = 'buttongradient'
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Rights = 12.000000000000000000
+      Margins.Bottom = 12.000000000000000000
+      Enabled = False
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = '4. 停止预览'
+      OnClick = btnStopClick
+    end
+  end
+  object tmrFrame: TTimer
+    Enabled = False
+    Interval = 33
+    OnTimer = tmrFrameTimer
+  end
+end

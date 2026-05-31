@@ -254,7 +254,7 @@ const
   MAX_IPV6_LEN = 64;    //IPv6地址最大长度
   MAX_EVENTID_LEN = 64;    //事件ID长度
 
-  INVALID_VALUE_UINT32 = $ffffffff;    //无效值
+  INVALID_VALUE_UINT32 = Cardinal($ffffffff);    //无效值
   MAX_CHANNUM_V40 = 512;    
   MAX_MULTI_AREA_NUM = 24;    
 
@@ -14433,7 +14433,7 @@ type
     HUMAN_ENTER_ABILITY = $10000000,  //人靠近ATM ,只在ATM_PANEL模式下支持
     OVER_TIME_ABILITY = $20000000,  //操作超时,只在ATM_PANEL模式下支持
     STICK_UP_ABILITY = $40000000,  //贴纸条
-    INSTALL_SCANNER_ABILITY = $80000000  //安装读卡器
+    INSTALL_SCANNER_ABILITY = Integer($80000000)  //安装读卡器
   );
 {$WARN BOUNDS_ERROR ON}
 
@@ -14618,7 +14618,7 @@ type
     VCA_HUMAN_ENTER = $10000000,  //人靠近ATM           只在ATM_PANEL模式下支持
     VCA_OVER_TIME = $20000000,  //操作超时            只在ATM_PANEL模式下支持
     VCA_STICK_UP = $40000000,  //贴纸条,支持区域规则
-    VCA_INSTALL_SCANNER = $80000000  //安装读卡器,支持区域规则
+    VCA_INSTALL_SCANNER = Integer($80000000)  //安装读卡器,支持区域规则
   );
 {$WARN BOUNDS_ERROR ON}
 
@@ -16434,7 +16434,7 @@ type
     EVENT_UNATTENDED_BAGGAGE,  //物品遗留
     EVENT_ATTENDEDBAGGAGE,  //物品拿取
     EVENT_VEHICLE_DETECTION,  //车辆检测
-    EVENT_ALL = $ffffffff  //表示全部
+    EVENT_ALL = Integer($ffffffff)  //表示全部
   );
 {$WARN BOUNDS_ERROR ON}
 
@@ -35258,7 +35258,7 @@ type
     DS4308HW_BOARD = 46,  //4308HW
     DS4316HW_BOARD = 47,  //4316HW
     DS4308MD_BOARD = 48,  //4308MD
-    UNKNOWN_BOARD_TYPE = $ffffffff  
+    UNKNOWN_BOARD_TYPE = Integer($ffffffff)  
   );
 {$WARN BOUNDS_ERROR ON}
 

@@ -1,0 +1,231 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = #28023#24247#23041#35270' HCNetSDK FMX Demo 2 '#8212#8212' '#21452#32531#20914#20248#21270#29256
+  ClientHeight = 600
+  ClientWidth = 900
+  StyleLookup = 'background'
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 0
+  object imgVideo: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Locked = True
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object layPanel: TLayout
+    Align = Right
+    Position.X = 640.000000000000000000
+    Size.Width = 260.000000000000000000
+    Size.Height = 600.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object lblIP: TLabel
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 12.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #35774#22791' IP'#65306
+    end
+    object edtIP: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      StyleLookup = 'editstyle'
+      Text = '192.168.1.64'
+      Position.X = 12.000000000000000000
+      Position.Y = 36.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblPort: TLabel
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 84.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #31471#21475#65306
+    end
+    object edtPort: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      StyleLookup = 'editstyle'
+      KeyboardType = NumberPad
+      Text = '8000'
+      Position.X = 12.000000000000000000
+      Position.Y = 108.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblUser: TLabel
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 156.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #29992#25143#21517#65306
+    end
+    object edtUser: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      StyleLookup = 'editstyle'
+      Text = 'admin'
+      Position.X = 12.000000000000000000
+      Position.Y = 180.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblPass: TLabel
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 228.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #23494#30721#65306
+    end
+    object edtPass: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      StyleLookup = 'editstyle'
+      Password = True
+      Text = '12345'
+      Position.X = 12.000000000000000000
+      Position.Y = 252.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 16.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblCh: TLabel
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Top = 8.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 308.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Text = #36890#36947#21495#65306
+    end
+    object edtCh: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      StyleLookup = 'editstyle'
+      KeyboardType = NumberPad
+      Text = '1'
+      Position.X = 12.000000000000000000
+      Position.Y = 332.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 24.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnInit: TButton
+      Align = Top
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 388.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'buttongradient'
+      Text = '1. '#21021#22987#21270' & '#30331#24405
+      OnClick = btnInitClick
+    end
+    object btnPreview: TButton
+      Align = Top
+      Enabled = False
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 436.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'buttongradient'
+      Text = '2. '#24320#22987#39044#35272
+      OnClick = btnPreviewClick
+    end
+    object btnCapture: TButton
+      Align = Top
+      Enabled = False
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 484.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'buttongradient'
+      Text = '3. '#25235#22270
+      OnClick = btnCaptureClick
+    end
+    object btnStop: TButton
+      Align = Top
+      Enabled = False
+      Margins.Left = 12.000000000000000000
+      Margins.Right = 12.000000000000000000
+      Margins.Bottom = 12.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 532.000000000000000000
+      Size.Width = 236.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'buttongradient'
+      Text = '4. '#20572#27490#39044#35272
+      OnClick = btnStopClick
+    end
+  end
+  object tmrFrame: TTimer
+    Enabled = False
+    Interval = 33
+    OnTimer = tmrFrameTimer
+  end
+end

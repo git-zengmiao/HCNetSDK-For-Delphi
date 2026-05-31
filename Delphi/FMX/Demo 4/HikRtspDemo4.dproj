@@ -1,0 +1,41 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{B8F9A3C1-7D2E-4F5A-9B6C-1E3D8A5F2C7B}</ProjectGuid>
+    <MainSource>HikRtspDemo4.dpr</MainSource>
+    <Base>True</Base>
+    <Config Condition="'$(Config)'==''">Debug</Config>
+    <Platform Condition="'$(Platform)'==''">Win64</Platform>
+    <TargetedPlatforms>Win64</TargetedPlatforms>
+    <AppType>Application</AppType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug'">
+    <OutputExt>.exe</OutputExt>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_DebugDCUs>true</DCC_DebugDCUs>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_RemoteDebugger>False</DCC_RemoteDebugger>
+    <DCC_Description>Debug Build</DCC_Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release'">
+    <OutputExt>.exe</OutputExt>
+    <DCC_Optimize>true</DCC_Optimize>
+    <DCC_Description>Release Build</DCC_Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="HikRtspDemo4.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DelphiCompile Include="uMain.pas" />
+    <RcCompile Include="HikRtspDemo4.res">
+      <DependentOn>HikRtspDemo4.dpr</DependentOn>
+    </RcCompile>
+    <None Include="uMain.fmx" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.PersonalityInfo>
+      <Personality>Delphi.Personality.FMX</Personality>
+    </Borland.PersonalityInfo>
+  </ProjectExtensions>
+  <Import Project="$(BDS)\Bin\CodeGear.Common.Targets" />
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" />
+</Project>
