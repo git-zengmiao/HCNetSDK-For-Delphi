@@ -71,7 +71,7 @@
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
-        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)\SDK</DCC_ExeOutput>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_PreferredToolArchitecture>x64</DCC_PreferredToolArchitecture>
         <DCC_UseMSBuildExternally>true</DCC_UseMSBuildExternally>
@@ -185,6 +185,12 @@
                 </DeployFile>
                 <DeployFile LocalName="HikFmxDemo2.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
+                        <RemoteName>HikFmxDemo2.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\HikFmxDemo2.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
                         <RemoteName>HikFmxDemo2.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>

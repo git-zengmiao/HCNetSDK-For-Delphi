@@ -8,180 +8,223 @@ object frmMain: TfrmMain
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
   object layTop: TLayout
     Align = Top
-    Height = 150.000000000000000000
-    Width = 1000.000000000000000000
+    Size.Width = 1000.000000000000000000
+    Size.Height = 150.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 0
     object lblTitle: TLabel
       Align = Top
-      Height = 32.000000000000000000
       Margins.Left = 8.000000000000000000
       Margins.Right = 8.000000000000000000
-      Width = 984.000000000000000000
+      Position.X = 8.000000000000000000
+      Size.Width = 984.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 18.000000000000000000
       Text = 'Hikvision RTSP Test Tool - Demo 4'
-      TextSettings.Font.Size = 18
-      TextSettings.Font.Style = [Bold]
     end
     object layConfig: TLayout
       Align = Client
-      Height = 118.000000000000000000
-      Width = 1000.000000000000000000
       Margins.Left = 8.000000000000000000
       Margins.Right = 8.000000000000000000
+      Size.Width = 984.000000000000000000
+      Size.Height = 118.000000000000000000
+      Size.PlatformDefault = False
       TabOrder = 1
       object lblIP: TLabel
         Position.X = 8.000000000000000000
         Position.Y = 8.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
         Text = 'IP Address:'
-        Width = 80.000000000000000000
       end
       object edtIP: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 0
+        Text = '192.168.6.120'
         Position.X = 96.000000000000000000
         Position.Y = 4.000000000000000000
-        Width = 160.000000000000000000
-        Height = 28.000000000000000000
-        Text = '192.168.6.120'
-        TabOrder = 0
+        Size.Width = 160.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
       end
       object lblPort: TLabel
         Position.X = 280.000000000000000000
         Position.Y = 8.000000000000000000
+        Size.Width = 120.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
         Text = 'Port (RTSP=554):'
-        Width = 120.000000000000000000
       end
       object edtPort: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 1
+        Text = '554'
         Position.X = 408.000000000000000000
         Position.Y = 4.000000000000000000
-        Width = 80.000000000000000000
-        Height = 28.000000000000000000
-        Text = '554'
-        TabOrder = 1
+        Size.Width = 80.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
       end
       object lblUser: TLabel
         Position.X = 8.000000000000000000
         Position.Y = 44.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
         Text = 'Username:'
-        Width = 80.000000000000000000
       end
       object edtUser: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 2
+        Text = 'admin'
         Position.X = 96.000000000000000000
         Position.Y = 40.000000000000000000
-        Width = 160.000000000000000000
-        Height = 28.000000000000000000
-        Text = 'admin'
-        TabOrder = 2
+        Size.Width = 160.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
       end
       object lblPwd: TLabel
         Position.X = 280.000000000000000000
         Position.Y = 44.000000000000000000
+        Size.Width = 120.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
         Text = 'Password:'
-        Width = 120.000000000000000000
       end
       object edtPwd: TEdit
-        Position.X = 408.000000000000000000
-        Position.Y = 40.000000000000000000
-        Width = 160.000000000000000000
-        Height = 28.000000000000000000
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 3
         Password = True
         Text = 'admin12345'
-        TabOrder = 3
+        Position.X = 408.000000000000000000
+        Position.Y = 40.000000000000000000
+        Size.Width = 160.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
       end
       object lblChannel: TLabel
         Position.X = 8.000000000000000000
         Position.Y = 80.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
         Text = 'Channel:'
-        Width = 80.000000000000000000
       end
       object edtChannel: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 4
+        Text = '1'
         Position.X = 96.000000000000000000
         Position.Y = 76.000000000000000000
-        Width = 80.000000000000000000
-        Height = 28.000000000000000000
-        Text = '1'
-        TabOrder = 4
+        Size.Width = 80.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
       end
       object cmbStream: TComboBox
         Position.X = 200.000000000000000000
         Position.Y = 76.000000000000000000
-        Width = 160.000000000000000000
-        Height = 28.000000000000000000
+        Size.Width = 160.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
         TabOrder = 5
       end
       object btnTest: TButton
         Position.X = 680.000000000000000000
         Position.Y = 8.000000000000000000
-        Width = 140.000000000000000000
-        Height = 40.000000000000000000
-        Text = 'Test RTSP'
-        TextSettings.Font.Size = 12
+        Size.Width = 140.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
         TabOrder = 6
+        Text = 'Test RTSP'
         OnClick = btnTestClick
       end
       object btnStop: TButton
+        Enabled = False
         Position.X = 680.000000000000000000
         Position.Y = 60.000000000000000000
-        Width = 140.000000000000000000
-        Height = 40.000000000000000000
-        Text = 'Stop'
-        TextSettings.Font.Size = 12
-        Enabled = False
+        Size.Width = 140.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
         TabOrder = 7
+        Text = 'Stop'
         OnClick = btnStopClick
       end
     end
   end
   object layVideo: TLayout
     Align = Client
-    Height = 470.000000000000000000
     Margins.Left = 8.000000000000000000
     Margins.Right = 8.000000000000000000
     Margins.Bottom = 8.000000000000000000
+    Size.Width = 984.000000000000000000
+    Size.Height = 430.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 1
     object MediaPlayerControl1: TMediaPlayerControl
+      Size.Width = 984.000000000000000000
+      Size.Height = 430.000000000000000000
+      Size.PlatformDefault = False
       Align = Client
-      Height = 470.000000000000000000
-      Width = 984.000000000000000000
     end
   end
   object layStatus: TLayout
     Align = Bottom
-    Height = 32.000000000000000000
-    Width = 1000.000000000000000000
+    Position.Y = 588.000000000000000000
+    Size.Width = 1000.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 2
     object lblStatus: TLabel
       Align = Left
-      Width = 400.000000000000000000
-      Height = 32.000000000000000000
-      Text = 'Ready - Click Test RTSP to start'
+      Size.Width = 400.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
       TextSettings.FontColor = claGreen
+      Text = 'Ready - Click Test RTSP to start'
     end
     object lblResolution: TLabel
       Align = Client
-      Width = 200.000000000000000000
-      Height = 32.000000000000000000
-      Text = ''
+      Size.Width = 400.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
       TextSettings.FontColor = claBlue
     end
     object lblFPS: TLabel
       Align = Right
-      Width = 200.000000000000000000
-      Height = 32.000000000000000000
-      Text = ''
+      Position.X = 800.000000000000000000
+      Size.Width = 200.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
       TextSettings.FontColor = claGray
     end
   end
   object layLog: TLayout
     Align = Bottom
-    Height = 80.000000000000000000
-    Width = 1000.000000000000000000
+    Position.Y = 620.000000000000000000
+    Size.Width = 1000.000000000000000000
+    Size.Height = 80.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 3
     object memLog: TMemo
-      Align = Client
-      Height = 80.000000000000000000
-      Width = 1000.000000000000000000
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
       ReadOnly = True
+      Align = Client
+      Size.Width = 1000.000000000000000000
+      Size.Height = 80.000000000000000000
+      Size.PlatformDefault = False
       TabOrder = 0
+      Viewport.Width = 996.000000000000000000
+      Viewport.Height = 76.000000000000000000
     end
+  end
+  object MediaPlayer1: TMediaPlayer
+    Left = 600
+    Top = 48
   end
 end

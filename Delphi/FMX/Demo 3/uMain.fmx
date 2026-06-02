@@ -1,191 +1,222 @@
-object TfrmMain
-  StyleLookup = 'background'
-  Caption = '海康威视 HCNetSDK FMX Demo 3 —— 隐藏HWND+BitBlt方案'
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = #28023#24247#23041#35270' HCNetSDK FMX Demo 3 '#8212#8212' '#38544#34255'HWND+BitBlt'#26041#26696
   ClientHeight = 620
   ClientWidth = 900
+  StyleLookup = 'background'
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 0
   object imgVideo: TImage
-    StyleLookup = ''
+    MultiResBitmap = <
+      item
+      end>
     Locked = True
-    Position.X = 0.000000000000000000
-    Position.Y = 0.000000000000000000
     Size.Width = 640.000000000000000000
     Size.Height = 480.000000000000000000
     Size.PlatformDefault = False
-    WrapMode = Fit
   end
   object layPanel: TLayout
-    StyleLookup = ''
     Align = Right
+    Position.X = 640.000000000000000000
     Size.Width = 260.000000000000000000
     Size.Height = 620.000000000000000000
     Size.PlatformDefault = False
+    TabOrder = 1
     object lblIP: TLabel
-      StyleLookup = ''
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Top = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 12.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
-      Text = '设备 IP：'
+      Text = #35774#22791' IP'#65306
     end
     object edtIP: TEdit
-      StyleLookup = 'editstyle'
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
+      StyleLookup = 'editstyle'
+      Text = '192.168.1.64'
+      Position.X = 12.000000000000000000
+      Position.Y = 36.000000000000000000
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 8.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
-      Text = '192.168.1.64'
     end
     object lblPort: TLabel
-      StyleLookup = ''
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Top = 8.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 84.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
-      Text = '端口：'
+      Text = #31471#21475#65306
     end
     object edtPort: TEdit
-      StyleLookup = 'editstyle'
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
+      StyleLookup = 'editstyle'
+      KeyboardType = NumberPad
+      Text = '8000'
+      Position.X = 12.000000000000000000
+      Position.Y = 108.000000000000000000
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 8.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
-      Text = '8000'
-      KeyboardType = NumberPad
     end
     object lblUser: TLabel
-      StyleLookup = ''
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Top = 8.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 156.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
-      Text = '用户名：'
+      Text = #29992#25143#21517#65306
     end
     object edtUser: TEdit
-      StyleLookup = 'editstyle'
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
+      StyleLookup = 'editstyle'
+      Text = 'admin'
+      Position.X = 12.000000000000000000
+      Position.Y = 180.000000000000000000
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 8.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
-      Text = 'admin'
     end
     object lblPass: TLabel
-      StyleLookup = ''
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Top = 8.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 228.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
-      Text = '密码：'
+      Text = #23494#30721#65306
     end
     object edtPass: TEdit
-      StyleLookup = 'editstyle'
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
+      StyleLookup = 'editstyle'
+      Password = True
+      Text = '12345'
+      Position.X = 12.000000000000000000
+      Position.Y = 252.000000000000000000
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 16.000000000000000000
-      Password = True
       Size.Width = 236.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
-      Text = '12345'
     end
     object lblCh: TLabel
-      StyleLookup = ''
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Top = 8.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 308.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
-      Text = '通道号：'
+      Text = #36890#36947#21495#65306
     end
     object edtCh: TEdit
-      StyleLookup = 'editstyle'
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
+      StyleLookup = 'editstyle'
+      KeyboardType = NumberPad
+      Text = '1'
+      Position.X = 12.000000000000000000
+      Position.Y = 332.000000000000000000
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 24.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
-      Text = '1'
-      KeyboardType = NumberPad
     end
     object btnInit: TButton
-      StyleLookup = 'buttongradient'
       Align = Top
       Margins.Left = 12.000000000000000000
       Margins.Right = 12.000000000000000000
       Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 388.000000000000000000
       Size.Width = 236.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
-      Text = '1. 初始化 & 登录'
+      StyleLookup = 'buttongradient'
+      Text = '1. '#21021#22987#21270' & '#30331#24405
       OnClick = btnInitClick
     end
     object btnPreview: TButton
-      StyleLookup = 'buttongradient'
       Align = Top
-      Margins.Left = 12.000000000000000000
-      Margins.Rights = 12.000000000000000000
-      Margins.Bottom = 8.000000000000000000
       Enabled = False
-      Size.Width = 236.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 436.000000000000000000
+      Size.Width = 248.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
-      Text = '2. 开始预览'
+      StyleLookup = 'buttongradient'
+      Text = '2. '#24320#22987#39044#35272
       OnClick = btnPreviewClick
     end
     object btnCapture: TButton
-      StyleLookup = 'buttongradient'
       Align = Top
-      Margins.Left = 12.000000000000000000
-      Margins.Rights = 12.000000000000000000
-      Margins.Bottom = 8.000000000000000000
       Enabled = False
-      Size.Width = 236.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 484.000000000000000000
+      Size.Width = 248.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
-      Text = '3. 抓图'
+      StyleLookup = 'buttongradient'
+      Text = '3. '#25235#22270
       OnClick = btnCaptureClick
     end
     object btnStop: TButton
-      StyleLookup = 'buttongradient'
       Align = Top
-      Margins.Left = 12.000000000000000000
-      Margins.Rights = 12.000000000000000000
-      Margins.Bottom = 12.000000000000000000
       Enabled = False
-      Size.Width = 236.000000000000000000
+      Margins.Left = 12.000000000000000000
+      Margins.Bottom = 12.000000000000000000
+      Position.X = 12.000000000000000000
+      Position.Y = 532.000000000000000000
+      Size.Width = 248.000000000000000000
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
-      Text = '4. 停止预览'
+      StyleLookup = 'buttongradient'
+      Text = '4. '#20572#27490#39044#35272
       OnClick = btnStopClick
     end
   end

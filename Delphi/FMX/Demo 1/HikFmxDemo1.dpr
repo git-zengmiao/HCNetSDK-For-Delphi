@@ -4,8 +4,7 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   uMain in 'uMain.pas' {frmMain: TForm},
-  HCNetSDK in '..\..\API\HCNetSDK.pas',
-  plaympeg4 in '..\..\API\plaympeg4.pas';
+  HCNetSDK in '..\..\API\HCNetSDK.pas';
 
 {$R *.res}
 

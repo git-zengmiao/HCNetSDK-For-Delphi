@@ -1,0 +1,302 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = 'HikFMX Demo 5 - RTSP via PasLibVlc'
+  ClientHeight = 596
+  ClientWidth = 846
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  DesignerMasterStyle = 0
+  object layVideo: TLayout
+    Align = Client
+    Margins.Left = 4.000000000000000000
+    Margins.Top = 4.000000000000000000
+    Margins.Right = 4.000000000000000000
+    Margins.Bottom = 4.000000000000000000
+    Size.Width = 632.000000000000000000
+    Size.Height = 588.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object vlcPlayer: TFmxPasLibVlcPlayer
+      MultiResBitmap = <
+        item
+        end
+        item
+          Scale = 2.000000000000000000
+          Width = 320
+          Height = 160
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000140000000A008060000007DA3B5
+            9C0000000473424954080808087C0864880000022549444154789CEDD4310100
+            200CC0B0817FCF2063471305BD7A66E60D40D0DD0E00D8628040960102590608
+            6419209065804096010259060864192090658040960102590608641920906580
+            4096010259060864192090658040960102590608641920906580409601025906
+            0864192090658040960102590608641920906580409601025906086419209065
+            8040960102590608641920906580409601025906086419209065804096010259
+            0608641920906580409601025906086419209065804096010259060864192090
+            6580409601025906086419209065804096010259060864192090658040960102
+            5906086419209065804096010259060864192090658040960102590608641920
+            9065804096010259060864192090658040960102590608641920906580409601
+            0259060864192090658040960102590608641920906580409601025906086419
+            2090658040960102590608641920906580409601025906086419209065804096
+            0102590608641920906580409601025906086419209065804096010259060864
+            1920906580409601025906086419209065804096010259060864192090658040
+            9601025906086419209065804096010259060864192090658040960102590608
+            6419209065804096010259060864192090658040960102590608641920906580
+            4096010259060864192090658040960102590608641920906580409601025906
+            086419209065804096010259060864192090658040960102591F4C3F023F29FA
+            A92F0000000049454E44AE426082}
+        end>
+      Align = Client
+      Size.Width = 632.000000000000000000
+      Size.Height = 588.000000000000000000
+      Size.PlatformDefault = False
+      WrapMode = Stretch
+      SnapShotFmt = 'png'
+      OnMediaPlayerPlaying = vlcPlayerMediaPlayerPlaying
+      OnMediaPlayerStopped = vlcPlayerMediaPlayerStopped
+      OnMediaPlayerEncounteredError = vlcPlayerMediaPlayerEncounteredError
+      OnMediaPlayerTimeChanged = vlcPlayerMediaPlayerTimeChanged
+    end
+    object lblHint: TLabel
+      Align = Client
+      Size.Width = 632.000000000000000000
+      Size.Height = 588.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = xA0A0A0A0
+      TextSettings.HorzAlign = Center
+      Text = 'RTSP '#35270#39057#39044#35272#21306#22495
+    end
+  end
+  object layPanel: TLayout
+    Align = Right
+    Position.X = 640.000000000000000000
+    Size.Width = 206.000000000000000000
+    Size.Height = 596.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object sbPanel: TScrollBox
+      Align = Client
+      Size.Width = 206.000000000000000000
+      Size.Height = 596.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 206.000000000000000000
+      Viewport.Height = 596.000000000000000000
+      object lblSection1: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 8.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = #35774#22791#21442#25968
+        TabOrder = 11
+      end
+      object lblIP: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 36.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'IP '#22320#22336
+        TabOrder = 12
+      end
+      object edtIP: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 0
+        Text = '192.168.6.120'
+        Position.X = 76.000000000000000000
+        Position.Y = 32.000000000000000000
+        Size.Width = 122.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblPort: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 66.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = #31471#21475
+        TabOrder = 13
+      end
+      object edtPort: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 1
+        Text = '554'
+        Position.X = 76.000000000000000000
+        Position.Y = 62.000000000000000000
+        Size.Width = 122.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblUser: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 96.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = #29992#25143#21517
+        TabOrder = 14
+      end
+      object edtUser: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 2
+        Text = 'admin'
+        Position.X = 76.000000000000000000
+        Position.Y = 92.000000000000000000
+        Size.Width = 122.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblPass: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 126.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = #23494#30721
+        TabOrder = 15
+      end
+      object edtPass: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 3
+        Password = True
+        Position.X = 76.000000000000000000
+        Position.Y = 122.000000000000000000
+        Size.Width = 122.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblStream: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 156.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = #30721#27969
+        TabOrder = 16
+      end
+      object cmbStream: TComboBox
+        Position.X = 76.000000000000000000
+        Position.Y = 152.000000000000000000
+        Size.Width = 122.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 4
+      end
+      object chkLowLatency: TCheckBox
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 186.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 20
+        Text = #26497#38480#20302#24310#26102#65288#32531#23384'=0'#65289
+        OnChange = chkLowLatencyChange
+      end
+      object lblSection2: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 214.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'VLC '#36335#24452' '#65288#21487#36873#65289
+        TabOrder = 17
+      end
+      object lblVlcPath: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 238.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = #32455#24452
+        TabOrder = 18
+      end
+      object edtVlcPath: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 5
+        Position.X = 76.000000000000000000
+        Position.Y = 234.000000000000000000
+        Size.Width = 96.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object btnBrowseVlc: TButton
+        Position.X = 172.000000000000000000
+        Position.Y = 234.000000000000000000
+        Size.Width = 26.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 6
+        Text = '...'
+        OnClick = btnBrowseVlcClick
+      end
+      object btnPlay: TButton
+        Position.X = 8.000000000000000000
+        Position.Y = 274.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 7
+        Text = #25773#25918
+        TextSettings.Font.Size = 14.000000000000000000
+        OnClick = btnPlayClick
+      end
+      object btnStop: TButton
+        Enabled = False
+        Position.X = 8.000000000000000000
+        Position.Y = 324.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 8
+        Text = #20572#27490
+        OnClick = btnStopClick
+      end
+      object btnSnapshot: TButton
+        Enabled = False
+        Position.X = 8.000000000000000000
+        Position.Y = 370.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 9
+        Text = #25130#22270
+        OnClick = btnSnapshotClick
+      end
+      object lblSection3: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 418.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = #36816#34892#26085#24535
+        TabOrder = 19
+      end
+      object memStatus: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        ReadOnly = True
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Position.X = 8.000000000000000000
+        Position.Y = 442.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 150.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 10
+        Viewport.Width = 186.000000000000000000
+        Viewport.Height = 146.000000000000000000
+      end
+    end
+  end
+end

@@ -1,4 +1,4 @@
-unit uMain;
+﻿unit uMain;
 
 {
   海康威视 RTSP 测试工具 —— FMX Demo 4
@@ -22,7 +22,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.Objects,
   FMX.Media,                 // TMediaPlayer
-  FMX.Controls.Presentation;
+  FMX.Controls.Presentation, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo,
+  FMX.ListBox;
 
 type
   TfrmMain = class(TForm)
@@ -35,7 +36,8 @@ type
         edtPort: TEdit;
         lblUser: TLabel;
         edtUser: TEdit;
-        lblPwd: TEdit;
+      lblPwd: TLabel;
+        edtPwd: TEdit;
         lblChannel: TLabel;
         edtChannel: TEdit;
         cmbStream: TComboBox;
@@ -49,6 +51,9 @@ type
       lblFPS: TLabel;
     layLog: TLayout;
       memLog: TMemo;
+    MediaPlayer1: TMediaPlayer;
+    procedure btnStopClick(Sender: TObject);
+    procedure btnTestClick(Sender: TObject);
   private
     FMediaPlayer: TMediaPlayer;
     FURL: string;
@@ -90,10 +95,10 @@ begin
   // 创建 TMediaPlayer
   FMediaPlayer := TMediaPlayer.Create(Self);
   FMediaPlayer.Parent := Self;
-  FMediaPlayer.Visible := False;            // 不需要显示，由 MediaPlayerControl 渲染
-  FMediaPlayer.OnPlay  := MediaPlayerPlay;
-  FMediaPlayer.OnStop  := MediaPlayerStop;
-  FMediaPlayer.OnError := MediaPlayerError;
+//  FMediaPlayer.Visible := False;            // 不需要显示，由 MediaPlayerControl 渲染
+//  FMediaPlayer.OnPlay  := MediaPlayerPlay;
+//  FMediaPlayer.OnStop  := MediaPlayerStop;
+//  FMediaPlayer.OnError := MediaPlayerError;
 
   // 关联 MediaPlayerControl
   MediaPlayerControl1.MediaPlayer := FMediaPlayer;
@@ -144,7 +149,7 @@ begin
   lblStatus.Text := '正在连接 RTSP 流...';
 
   try
-    FMediaPlayer.URL := FURL;
+   // FMediaPlayer.URL := FURL;
     FMediaPlayer.Play;
     btnTest.Enabled  := False;
     btnStop.Enabled  := True;
@@ -182,14 +187,14 @@ begin
   try
     if FMediaPlayer.Media <> nil then
     begin
-      lblResolution.Text := Format('分辨率：%d × %d',
-        [FMediaPlayer.Media.VideoSize.Width,
-         FMediaPlayer.Media.VideoSize.Height]);
+//      lblResolution.Text := Format('分辨率：%d × %d',
+//        [FMediaPlayer.Media.VideoSize.Width,
+//         FMediaPlayer.Media.VideoSize.Height]);
       lblFPS.Text := Format('时长：%.1f 秒', [FMediaPlayer.Media.Duration]);
-      Log(Format('视频信息：%d×%d，时长 %.1f 秒',
-        [FMediaPlayer.Media.VideoSize.Width,
-         FMediaPlayer.Media.VideoSize.Height,
-         FMediaPlayer.Media.Duration]));
+//      Log(Format('视频信息：%d×%d，时长 %.1f 秒',
+//        [FMediaPlayer.Media.VideoSize.Width,
+//         FMediaPlayer.Media.VideoSize.Height,
+//         FMediaPlayer.Media.Duration]));
     end;
   except
     on E: Exception do

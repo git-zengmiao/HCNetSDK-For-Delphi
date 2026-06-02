@@ -1,4 +1,4 @@
-unit uMain;
+﻿unit uMain;
 {
   海康威视 HCNetSDK FMX Demo 3 —— 隐藏 HWND + BitBlt 加速方案
   核心技术：创建隐藏 Win32 窗口作为 PlayCtrl 渲染目标，
@@ -23,8 +23,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.StdCtrls, FMX.Edit, FMX.Layouts,
   FMX.Controls.Presentation,
-  Winapi.Windows, Winapi.Messages,
-  HCNetSDK, PlayMpeg4;
+  Winapi.Messages,
+  HCNetSDK, PlayMpeg4, FMX.Objects;
 
 type
   TfrmMain = class(TForm)
@@ -53,14 +53,14 @@ type
     procedure btnCaptureClick(Sender: TObject);
     procedure btnStopClick(Sender: TObject);
   private
-    FUserID:     LONG;
-    FRealHandle: LONG;
+    FUserID:     LongInt;
+    FRealHandle: LongInt;
     FPlayPort:   Integer;
-    FHiddenWnd:  HWND;    // 隐藏窗口句柄（PlayCtrl 渲染目标）
+    FHiddenWnd:  THandle;    // 隐藏窗口句柄（PlayCtrl 渲染目标）
     FCaptureBmp: TBitmap; // 抓图专用（避免渲染冲突）
     function  GbkToStr(const AAnsi: AnsiString): string;
     procedure ShowSDKError(const APrefix: string);
-    function  CreateHiddenWnd: HWND;
+    function  CreateHiddenWnd: THandle;
     procedure DestroyHiddenWnd;
     procedure CaptureFromHiddenWnd;  // BitBlt 抓图到 imgVideo
   public
@@ -72,11 +72,12 @@ var
 { ============================================================
   全局回调
   ============================================================ }
+implementation
 
 var
   G_PlayPort: Integer = -1;
 
-procedure RealDataCB(lRealHandle: LONG; dwDataType: DWORD;
+procedure RealDataCB(lRealHandle: LongInt; dwDataType: DWORD;
   pBuffer: PBYTE; dwBufSize: DWORD; pUser: Pointer); stdcall;
 begin
   if G_PlayPort < 0 then Exit;
@@ -87,9 +88,9 @@ begin
     // 关键：PlayM4_Play 的 hPlayWnd 传隐藏窗口句柄
     // PlayCtrl 会直接渲染到该 HWND（GPU 加速）
     if frmMain <> nil then
-      PlayM4_Play(G_PlayPort, frmMain.FHiddenWnd, 0)
+      PlayM4_Play(G_PlayPort, frmMain.FHiddenWnd)
     else
-      PlayM4_Play(G_PlayPort, 0, 0);
+      PlayM4_Play(G_PlayPort, 0);
   end
   else if dwDataType = NET_DVR_STREAMDATA then
   begin
@@ -97,7 +98,6 @@ begin
   end;
 end;
 
-implementation
 
 {$R *.fmx}
 
@@ -105,13 +105,18 @@ implementation
 
 function TfrmMain.GbkToStr(const AAnsi: AnsiString): string;
 var
-  nLen: Integer;
+  GBK: TEncoding;
+  Data: TBytes;
 begin
   if AAnsi = '' then Exit('');
-  nLen := MultiByteToWideChar(936, 0, PAnsiChar(AAnsi), -1, nil, 0);
-  if nLen <= 0 then Exit(string(AAnsi));
-  SetLength(Result, nLen - 1);
-  MultiByteToWideChar(936, 0, PAnsiChar(AAnsi), -1, PChar(Result), nLen);
+  GBK := TEncoding.GetEncoding(936);
+  try
+    SetLength(Data, Length(AAnsi));
+    Move(PAnsiChar(AAnsi)^, Data[0], Length(AAnsi));
+    Result := GBK.GetString(Data);
+  finally
+    GBK.Free;
+  end;
 end;
 
 procedure TfrmMain.ShowSDKError(const APrefix: string);

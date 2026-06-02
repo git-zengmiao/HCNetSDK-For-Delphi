@@ -2,12 +2,13 @@
 
 {
   海康威视 HCNetSDK FMX Demo 1
-  功能：初始化SDK、登录设备、实时预览、抓图
+  功能：TabControl 框架 + 初始化SDK、登录设备、实时预览、抓图
+  布局：TabControl 包含 tabHome（首页）和 tabVideo（视频监控）
   核心技术要点：
     FMX 中只有 TForm (TCommonCustomForm) 有 WindowHandle，其它控件均无原生 HWND。
     解决方案：在 TLayout 所在的区域内，通过 Win32 API 动态创建一个真正的子窗口
     (CreateWindowEx)，将该子窗口的 HWND 作为 hPlayWnd 传给 HCNetSDK，
-    并在 TLayout 的 OnResize/OnPainting 中同步更新子窗口的位置和尺寸。
+    并在 TLayout 的 OnResize 中同步更新子窗口的位置和尺寸。
 }
 
 interface
@@ -17,15 +18,28 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.Objects,
   FMX.Controls.Presentation,
+  FMX.TabControl,
   Winapi.Windows, Winapi.Messages,
   HCNetSDK;
 
 type
   TfrmMain = class(TForm)
-    // --- 左侧：视频容器 ---
-    layVideo: TLayout;          // 视频渲染容器（代替 VCL 的 TDBImage）
+    // --- TabControl ---
+    tcMain: TTabControl;
+    tabHome: TTabItem;
+    tabVideo: TTabItem;
 
-    // --- 右侧：操作面板 ---
+    // --- tabHome 首页内容 ---
+    recHomeBg: TRectangle;
+    lblHomeTitle: TLabel;
+    lblHomeDesc: TLabel;
+    lblHomeVer: TLabel;
+    btnGotoVideo: TButton;
+
+    // --- tabVideo 视频监控内容 ---
+    layVideo: TLayout;
+    recVideoBackground: TRectangle;
+    txtVideoHint: TText;
     layPanel: TLayout;
 
     lblIP:    TLabel;
@@ -39,16 +53,18 @@ type
     lblCh:    TLabel;
     edtCh:    TEdit;
 
-    btnInit:    TButton;        // 初始化SDK并登录
-    btnPreview: TButton;        // 实时预览
-    btnCapture: TButton;        // 抓图
-    btnStop:    TButton;        // 停止预览
+    btnInit:    TButton;
+    btnPreview: TButton;
+    btnCapture: TButton;
+    btnStop:    TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure layVideoResize(Sender: TObject);
+    procedure tcMainChange(Sender: TObject);
 
+    procedure btnGotoVideoClick(Sender: TObject);
     procedure btnInitClick(Sender: TObject);
     procedure btnPreviewClick(Sender: TObject);
     procedure btnCaptureClick(Sender: TObject);
@@ -61,15 +77,29 @@ type
     // 嵌入在 FMX TLayout 内的原生 Win32 子窗口
     FVideoHWnd: HWND;
 
+    // layVideo 所在的 TabItem（用于切换时显隐子窗口）
+    FVideoTabItem: TTabItem;
+
+    // 延迟同步定时器（切换Tab后FMX布局可能未立即完成）
+    FSyncTimer: TTimer;
+    procedure SyncTimerTimer(Sender: TObject);
+
     // 创建/销毁/同步 Win32 子窗口
     procedure CreateVideoWindow;
     procedure DestroyVideoWindow;
     procedure SyncVideoWindow;
 
+    // 根据当前 Tab 状态显示/隐藏 Win32 子窗口
+    procedure UpdateVideoWindowVisibility;
+
     // 工具函数
     function FormHWnd: HWND;
+    function GetFormScale: Single;  // FMX 逻辑像素 → Win32 物理像素的缩放比
     function GbkToStr(const AAnsi: AnsiString): string;
     procedure ShowSDKError(const APrefix: string);
+
+    // 拦截 Form 的 WM_MOVE 消息
+    procedure WMMove(var Message: TWMMove); message WM_MOVE;
   public
   end;
 
@@ -81,14 +111,12 @@ implementation
 {$R *.fmx}
 
 uses
-  FMX.Platform.Win;  // WindowHandleToPlatform, needed for Form HWND
+  FMX.Platform.Win;  // WindowHandleToPlatform
 
 { ============================================================
   Win32 子窗口相关
   ============================================================ }
 
-// 注册一个最简单的窗口类（DefWindowProc，不处理任何消息）
-// 只需注册一次。
 var
   GVideoWndClassRegistered: Boolean = False;
 
@@ -120,10 +148,23 @@ begin
   FRealHandle := -1;
   FVideoHWnd  := 0;
 
+  // ★ 视频窗口位于 tabVideo 标签页
+  FVideoTabItem := tabVideo;
+
+  // 延迟同步定时器：切换Tab后FMX布局可能未立即完成
+  // 100ms后再次同步子窗口位置
+  FSyncTimer := TTimer.Create(Self);
+  FSyncTimer.Interval := 100;
+  FSyncTimer.OnTimer  := SyncTimerTimer;
+  FSyncTimer.Enabled  := False;
+
   // 初始状态按钮可用性
   btnPreview.Enabled := False;
   btnCapture.Enabled := False;
   btnStop.Enabled    := False;
+
+  // 默认显示首页
+  tcMain.ActiveTab := tabHome;
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -147,6 +188,9 @@ begin
 
   // 销毁子窗口
   DestroyVideoWindow;
+
+  // 销毁定时器
+  FreeAndNil(FSyncTimer);
 end;
 
 // 获取 FMX Form 的真实 Win32 HWND
@@ -155,8 +199,22 @@ begin
   Result := FmxHandleToHWND(Self.Handle);
 end;
 
+// 计算 FMX 逻辑像素 → Win32 物理像素的缩放比
+// 原理：对比 Win32 GetClientRect(物理像素) 与 FMX Self.ClientWidth(逻辑像素)
+// 100% 缩放 = 1.0，150% = 1.5，200% = 2.0
+function TfrmMain.GetFormScale: Single;
+var
+  FormWinHwnd: HWND;
+  cr: TRect;
+begin
+  Result := 1.0;
+  FormWinHwnd := FmxHandleToHWND(Self.Handle);
+  if FormWinHwnd = 0 then Exit;
+  if GetClientRect(FormWinHwnd, cr) and (Self.ClientWidth > 0) then
+    Result := cr.Width / Self.ClientWidth;
+end;
+
 // GBK (CP936) AnsiString → Delphi Unicode String
-// 用 Win32 MultiByteToWideChar 直接转换，最可靠
 function TfrmMain.GbkToStr(const AAnsi: AnsiString): string;
 var
   nLen: Integer;
@@ -174,7 +232,6 @@ var
   errMsg:  AnsiString;
 begin
   errCode := NET_DVR_GetLastError();
-  // NET_DVR_GetErrorMsg 参数是 PLONG（可选，传 nil 表示用内部最后一个错误码）
   errMsg  := AnsiString(NET_DVR_GetErrorMsg(nil));
   ShowMessage(APrefix + #13#10 +
     '错误码: ' + IntToStr(errCode) + #13#10 +
@@ -187,16 +244,27 @@ procedure TfrmMain.CreateVideoWindow;
 var
   r: TRectF;
   rc: TRect;
+  Scale: Single;
 begin
   if FVideoHWnd <> 0 then Exit;   // 已创建
 
   EnsureVideoWndClassRegistered;
 
-  // 计算 layVideo 在屏幕上的绝对位置
-  r  := layVideo.AbsoluteRect;
-  rc := Rect(Round(r.Left), Round(r.Top), Round(r.Right), Round(r.Bottom));
+  Scale := GetFormScale;
 
-  // 转换为 Form 客户区坐标（FMX 的 AbsoluteRect 已经是客户区坐标）
+  // layVideo 在 FMX 逻辑坐标中的绝对位置
+  r := layVideo.AbsoluteRect;
+
+  // ★ 关键：FMX 逻辑像素 × Scale = Win32 物理像素
+  // 在 150% 缩放下，逻辑 680px → 物理 1020px
+  rc := Rect(
+    Round(r.Left   * Scale),
+    Round(r.Top    * Scale),
+    Round(r.Right  * Scale),
+    Round(r.Bottom * Scale)
+  );
+
+  // 在 Form 客户区创建 Win32 子窗口（坐标和尺寸均为物理像素）
   FVideoHWnd := CreateWindowEx(
     0,
     VIDEO_WND_CLASS,
@@ -204,14 +272,17 @@ begin
     WS_CHILD or WS_VISIBLE or WS_CLIPSIBLINGS or WS_CLIPCHILDREN,
     rc.Left, rc.Top,
     rc.Width, rc.Height,
-    FormHWnd,    // 父窗口 = FMX Form
+    FormHWnd,    // 父窗口 = FMX Form 的 HWND
     0,
     HInstance,
     nil
   );
 
   if FVideoHWnd = 0 then
-    ShowMessage('创建视频子窗口失败，GetLastError=' + IntToStr(GetLastError));
+    ShowMessage('创建视频子窗口失败，GetLastError=' + IntToStr(GetLastError))
+  else
+    // 初始化显隐状态与当前 Tab 一致
+    UpdateVideoWindowVisibility;
 end;
 
 procedure TfrmMain.DestroyVideoWindow;
@@ -226,18 +297,31 @@ end;
 // 将 Win32 子窗口同步到 layVideo 当前位置和尺寸
 procedure TfrmMain.SyncVideoWindow;
 var
-  r:  TRectF;
+  r: TRectF;
   rc: TRect;
+  Scale: Single;
 begin
   if FVideoHWnd = 0 then Exit;
+  if not Assigned(layVideo) then Exit;
 
-  r  := layVideo.AbsoluteRect;
-  rc := Rect(Round(r.Left), Round(r.Top), Round(r.Right), Round(r.Bottom));
+  Scale := GetFormScale;
+
+  // AbsoluteRect 是相对于 FMX Form 客户区的逻辑像素坐标
+  r := layVideo.AbsoluteRect;
+
+  // ★ 逻辑像素 × Scale = 物理像素
+  rc := Rect(
+    Round(r.Left   * Scale),
+    Round(r.Top    * Scale),
+    Round((r.Left + r.Width)  * Scale),
+    Round((r.Top  + r.Height) * Scale)
+  );
 
   SetWindowPos(
     FVideoHWnd, HWND_TOP,
     rc.Left, rc.Top, rc.Width, rc.Height,
-    SWP_NOACTIVATE or SWP_SHOWWINDOW
+    SWP_NOACTIVATE or SWP_NOZORDER
+    // 注意：不用 SWP_SHOWWINDOW，显隐由 UpdateVideoWindowVisibility 统一控制
   );
 end;
 
@@ -251,6 +335,57 @@ begin
   SyncVideoWindow;
 end;
 
+{ --- TabControl 切换处理 --- }
+
+// 延迟同步定时器回调
+procedure TfrmMain.SyncTimerTimer(Sender: TObject);
+begin
+  FSyncTimer.Enabled := False;
+  if FVideoHWnd <> 0 then
+    SyncVideoWindow;
+end;
+
+// TabControl 标签页切换
+procedure TfrmMain.tcMainChange(Sender: TObject);
+begin
+  UpdateVideoWindowVisibility;
+
+  // 切回视频Tab时，延迟100ms再同步一次位置
+  // 原因：FMX 布局引擎在Tab切换后可能需要额外的时间来完成重新计算
+  if Assigned(FVideoTabItem) and FVideoTabItem.IsSelected then
+    FSyncTimer.Enabled := True;
+end;
+
+// 根据当前 Tab 状态显示/隐藏 Win32 子窗口
+procedure TfrmMain.UpdateVideoWindowVisibility;
+begin
+  if FVideoHWnd = 0 then Exit;
+
+  if FVideoTabItem.IsSelected then
+  begin
+    ShowWindow(FVideoHWnd, SW_SHOW);
+    SyncVideoWindow;  // 切换回来时立即同步位置
+  end
+  else
+    ShowWindow(FVideoHWnd, SW_HIDE);
+end;
+
+{ --- 首页导航 --- }
+
+procedure TfrmMain.btnGotoVideoClick(Sender: TObject);
+begin
+  tcMain.ActiveTab := tabVideo;
+end;
+
+{ --- 响应 Form 移动 --- }
+
+procedure TfrmMain.WMMove(var Message: TWMMove);
+begin
+  inherited;
+  // Form 移动后同步子窗口位置
+  SyncVideoWindow;
+end;
+
 { --- SDK 操作 --- }
 
 procedure TfrmMain.btnInitClick(Sender: TObject);
@@ -261,16 +396,18 @@ var
   sPass: AnsiString;
   nPort: Word;
 begin
+  // 自动切换到视频Tab
+  if tcMain.ActiveTab <> tabVideo then
+    tcMain.ActiveTab := tabVideo;
+
   // 1. 初始化 SDK
   if not NET_DVR_Init() then
   begin
     ShowMessage('SDK初始化失败');
     Exit;
-  end else
-    ShowMessage('SDK初始化成功');
+  end;
 
-
-  // 2. 设置日志（可选，便于调试）
+  // 2. 设置日志
   NET_DVR_SetLogToFile(3, PAnsiChar(AnsiString(ExtractFilePath(ParamStr(0)))), False);
 
   // 3. 读取界面参数
@@ -294,9 +431,6 @@ begin
     Exit;
   end;
 
-  ShowMessage('SDK初始化并登录成功！' + #13#10 +
-    '设备序列号: ' + GbkToStr(AnsiString(PAnsiChar(@struDevInfo.sSerialNumber[0]))));
-
   btnInit.Enabled    := False;
   btnPreview.Enabled := True;
 end;
@@ -310,6 +444,10 @@ begin
     ShowMessage('请先初始化SDK并登录！');
     Exit;
   end;
+
+  // 自动切换到视频Tab
+  if tcMain.ActiveTab <> tabVideo then
+    tcMain.ActiveTab := tabVideo;
 
   // 确保 Win32 子窗口已创建并同步位置
   CreateVideoWindow;
@@ -348,7 +486,7 @@ begin
     NET_DVR_StopRealPlay(FRealHandle);
     FRealHandle := -1;
 
-    // 清空视频区域（发送 WM_PAINT 让子窗口重绘为黑色背景）
+    // 清空视频区域
     Winapi.Windows.InvalidateRect(FVideoHWnd, nil, True);
   end;
 
